@@ -13,15 +13,17 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
     renderMeme()
+    renderGallery()
 }
 
-function renderMeme() {
+function renderMeme(elImg) {
+    if (elImg) return renderImg(elImg)
     const meme = getMeme()
     const img = new Image()
     img.src = `meme-imgs/meme-imgs(square)/${meme.selectedImgId}.jpg`
     img.onload = () => {
         renderImg(img)
-        drawText(meme.lines[0].txt, meme.lines[0].size, meme.lines[0].color ,gElCanvas.width / 2, gElCanvas.height / 2)
+        drawText(meme.lines[0].txt, meme.lines[0].size, meme.lines[0].color, gElCanvas.width / 2, gElCanvas.height / 2)
     }
 }
 
@@ -34,7 +36,7 @@ function onSelectMeme(elmeme) {
     renderImg(elmeme)
 }
 
-function onTxtInput(txt){
+function onTxtInput(txt) {
     setLineTxt(txt)
 }
 

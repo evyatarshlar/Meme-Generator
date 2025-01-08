@@ -20,3 +20,7 @@ function setLineTxt(txt) {
     gMeme.lines[0].txt = txt
     renderMeme()
 }
+
+function setImg(img){
+    renderMeme(img)
+}
