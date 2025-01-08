@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+}
+
+main {
+    display: grid;
+    place-items: center;
+}
+
+
+.canvas-container {
+    width: 80vw;
+    border: 2px solid red;
+}
+
+.gallery{
+    display: grid;
+    grid-template-columns: repeat(4,minmax(20vw ,1fr));
+    gap : 15px
+
+}
+
+.gallery > img{
+    width: 100%;
+    border-radius: 8px;
+}
+
+
+/* .main-header 
+
+.logo
+.main-nav
+ */

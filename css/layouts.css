@@ -1,0 +1,14 @@
+/* main layout */
+/* .main-layout {
+    display: grid;
+    grid-template-columns:
+        var(--layoutpadding) 1fr var(--layoutpadding);
+}
+
+.main-layout>*:not(.full) {
+    grid-column: 2;
+}
+
+.main-layout>.full {
+    grid-column: 1 / -1;
+} */
