@@ -16,6 +16,7 @@ function getMeme() {
     return gMeme
 }
 
-function setLineTxt() {
+function setLineTxt(txt) {
+    gMeme.lines[0].txt = txt
     renderMeme()
 }
