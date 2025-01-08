@@ -17,9 +17,9 @@
         <div class="logo">Meme Generator</div>
         <nav class="main-nav">
             <ul class="flex clean-list">
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#">Memes</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="#" onclick="onGallery()">Gallery</a></li>
+                <li><a href="#" onclick="">Memes</a></li>
+                <li><a href="#" onclick="">About</a></li>
             </ul>
         </nav>
 
@@ -30,24 +30,26 @@
 
         <section class="editor">
             <div class="canvas-container">
-                <canvas width="400" height="400"></canvas>
-                <!--onmousedown="onDown(event)" onmousemove="onDrow(event)"
-                onmouseup="onUp()" 
+                <canvas width="400" height="400" onmousedown="onDown(event)" onmousemove="onDrow(event)"
+                onmouseup="onUp()"></canvas>
+                <!-- 
                 ontouchstart="onDown(event)" ontouchmove="onMove(event)" ontouchend="onUp()" -->
             </div>
             <section>
+                
                 <input class="color" type="color" value="#000000" oninput="onSetFillColor(this.value)" />
                 <input class="color" type="color" value="#000000" oninput="onSetLineColor(this.value)" />
                 <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
                 <button onclick="onFontSize(1)">+</button>
                 <button onclick="onFontSize(-1)">-</button>
-                <button onclick="onAddLine()">add line</button>
-                <button onclick="onSwichLine()">switch line</button>
+                <button onclick="onAddLine()">Add line</button>
+                <button onclick="onRemovLine()">Delete line</button>
+                <button onclick="onSwichLine()">Switch line</button>
                 <input type="text" id="name" name="name" size="10" oninput="onTxtInput(this.value)" />
             </section>
         </section>
 
-        <section class="gallery">
+        <section class="gallery" hidden>
         </section>
     </main>
     <footer></footer>

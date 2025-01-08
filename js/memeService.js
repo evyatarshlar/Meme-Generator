@@ -8,8 +8,16 @@ var gMeme = {
             txt: 'I sometimes eat Falafel',
             size: 30,
             color: 'red',
-            lineColor: 'black'
-        }
+            lineColor: 'black',
+            pos : {x : 200 , y : 30}
+        },
+        // {
+        //     txt: 'wow!',
+        //     size: 30,
+        //     color: 'red',
+        //     lineColor: 'black',
+        //     pos : {x :200 , y : 30}
+        // }
     ]
 }
 
@@ -31,10 +39,11 @@ function addLine() {
 
 function _createLine(){
     return {
-        txt: 'aaa',
+        txt: 'Text',
         size: 30,
         color: 'blue',
-        lineColor: 'green'
+        lineColor: 'green',
+        pos : {x : gElCanvas.width / 2,  y :gElCanvas.height / 2 }
     }
 }
 
@@ -50,4 +59,8 @@ function swichLine(){
 
 function setImg(img) {
     renderMeme(img) ////controller?
+}
+
+function removLine(){
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1)
 }

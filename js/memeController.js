@@ -25,10 +25,10 @@ function renderMeme(elImg) {
     img.onload = () => {
         renderImg(img)
         meme.lines.forEach(line => {
-            const { txt, size, color, lineColor } = line
-            drawText(txt, size, color, lineColor, gElCanvas.width / 2, gElCanvas.height / 2)
+            const { txt, size, color, lineColor, pos } = line
+            drawText(txt, size, color, lineColor, pos.x, pos.y)
         })
-        selectedLineFram(gElCanvas.width / 2, gElCanvas.height / 2)
+        selectedLineFram()
     }
 }
 
@@ -51,15 +51,16 @@ function drawText(text, size, color, line, x, y) {
     gCtx.closePath()
 }
 
-function selectedLineFram(x,  y){
+function selectedLineFram() {
     const meme = getMeme()
-    const { txt, size } = meme.lines[meme.selectedLineIdx]
+    if (meme.lines.length === 0) return
+    const { txt, size, pos } = meme.lines[meme.selectedLineIdx]
     gCtx.beginPath()
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
-    const posX = gCtx.measureText(txt).width + 10
+    const posX =  (gCtx.measureText(txt).width) + 10 
     const posY = size + 10
-    gCtx.strokeRect(x - (posX/2) , y- (posY/2)  , posX , posY)
+    gCtx.strokeRect(pos.x - (posX / 2), pos.y - (posY / 2), posX, posY)
     gCtx.closePath()
 }
 
@@ -99,4 +100,60 @@ function onAddLine() {
 function onSwichLine() {
     swichLine()
     renderMeme()
+}
+
+
+function getEvPos(ev) {
+    const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
+
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+
+    if (TOUCH_EVS.includes(ev.type)) {
+        // Prevent triggering the mouse ev
+        ev.preventDefault()
+        // Gets the first touch point
+        ev = ev.changedTouches[0]
+        // Calc the right pos according to the touch screen
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+        }
+    }
+    return pos
+}
+
+function onDown(ev) {
+    const clickedPos = getEvPos(ev)
+    // const { offsetX, offsetY, clientX, clientY } = ev
+    const meme = getMeme()
+    const lineClikced = meme.lines.find(line => {
+        const txtWidth = (gCtx.measureText(line.txt).width)
+        return clickedPos.x > line.pos.x - (txtWidth / 2) &&
+            clickedPos.x < line.pos.x + (txtWidth / 2) &&
+            clickedPos.y > line.pos.y - (line.size / 2) &&
+            clickedPos.y < line.pos.y + (line.size / 2)
+    })
+    if (!lineClikced) return
+    else    meme.selectedLineIdx = meme.lines.findIndex(line => lineClikced.pos === line.pos)
+  renderMeme()
+}
+
+function onDrow(ev) {
+
+}
+function onUp() {
+
+}
+
+function onRemovLine(){
+    removLine()
+    renderMeme()
+}
+
+function onGallery(){
+    const elgallery = document.querySelector('gallery')
+    elgallery.removeAttribute('hidden')
 }
