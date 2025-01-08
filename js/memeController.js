@@ -28,7 +28,7 @@ function renderMeme(elImg) {
             const { txt, size, color, lineColor } = line
             drawText(txt, size, color, lineColor, gElCanvas.width / 2, gElCanvas.height / 2)
         })
-
+        selectedLineFram(gElCanvas.width / 2, gElCanvas.height / 2)
     }
 }
 
@@ -48,9 +48,18 @@ function drawText(text, size, color, line, x, y) {
 
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
+    gCtx.closePath()
+}
 
-    // gCtx.strokeStyle = 'black'
-    // gCtx.strokeRect(x * 0.76, y * 0.87, text.length * 22, 50)
+function selectedLineFram(x,  y){
+    const meme = getMeme()
+    const { txt, size } = meme.lines[meme.selectedLineIdx]
+    gCtx.beginPath()
+    gCtx.lineWidth = 2
+    gCtx.strokeStyle = 'black'
+    const posX = gCtx.measureText(txt).width + 10
+    const posY = size + 10
+    gCtx.strokeRect(x - (posX/2) , y- (posY/2)  , posX , posY)
     gCtx.closePath()
 }
 
