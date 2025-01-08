@@ -12,12 +12,12 @@ function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+    resizeCanvas()
     renderMeme()
     renderGallery()
 }
 
-function renderMeme(elImg) {
-    if (elImg) return renderImg(elImg)
+function renderMeme() {
     const meme = getMeme()
 
     const img = new Image()
@@ -37,7 +37,7 @@ function renderImg(img) {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function drawText(text, size, color, line, x, y) {
+function drawText(text, size, color, line, x, y, r =90) {
     gCtx.beginPath()
     gCtx.lineWidth = 1
     gCtx.strokeStyle = line
@@ -45,7 +45,9 @@ function drawText(text, size, color, line, x, y) {
     gCtx.font = `${size}px Arial`
     gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
-
+    // gCtx.translate(x, y)
+    // gCtx.rotate(r * Math.PI / 180)
+    // gCtx.translate(-x, -y)
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
     gCtx.closePath()
@@ -58,6 +60,7 @@ function selectedLineFram() {
     gCtx.beginPath()
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
+    gCtx.font = `${size}px Arial`
     const posX =  (gCtx.measureText(txt).width) + 10 
     const posY = size + 10
     gCtx.strokeRect(pos.x - (posX / 2), pos.y - (posY / 2), posX, posY)
@@ -130,6 +133,7 @@ function onDown(ev) {
     // const { offsetX, offsetY, clientX, clientY } = ev
     const meme = getMeme()
     const lineClikced = meme.lines.find(line => {
+        gCtx.font = `${line.size}px Arial`
         const txtWidth = (gCtx.measureText(line.txt).width)
         return clickedPos.x > line.pos.x - (txtWidth / 2) &&
             clickedPos.x < line.pos.x + (txtWidth / 2) &&
@@ -153,7 +157,162 @@ function onRemovLine(){
     renderMeme()
 }
 
+function onSelectImuji(imuji){
+   addLine(imuji)
+   renderMeme()
+}
+
 function onGallery(){
     const elgallery = document.querySelector('gallery')
     elgallery.removeAttribute('hidden')
 }
+
+function onPositioningArrow(step){
+    const meme = getMeme()
+    meme.lines[meme.selectedLineIdx].pos.y += step
+    renderMeme()
+}
+
+///////////////////////////////////////////////
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderImg)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    // document.querySelector('.share-container').innerHTML = ''
+    const reader = new FileReader()
+
+    reader.onload = function (event) {
+        const img = new Image()
+        img.onload = () => {
+            onImageReady(img)
+        }
+        img.src = event.target.result
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+
+function renderImg(img) {
+    gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
+    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+///////////////////////////////////////////
+
+function onUploadImg(ev) {
+    ev.preventDefault()
+    const canvasData = gElCanvas.toDataURL('image/jpeg')
+
+    // After a succesful upload, allow the user to share on Facebook
+    function onSuccess(uploadedImgUrl) {
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        console.log('encodedUploadedImgUrl:', encodedUploadedImgUrl)
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
+
+        // document.querySelector('.share-container').innerHTML = `
+        // <a href="${uploadedImgUrl}">Uploaded picture</a>
+        // <p>Image url: ${uploadedImgUrl}</p>
+        // <button class="btn-facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}')">
+        //    Share on Facebook  
+        // </button>`
+    }
+
+    uploadImg(canvasData, onSuccess)
+}
+
+async function uploadImg(imgData, onSuccess) {
+    const CLOUD_NAME = 'webify'
+    const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
+    const formData = new FormData()
+    formData.append('file', imgData)
+    formData.append('upload_preset', 'webify')
+    try {
+        const res = await fetch(UPLOAD_URL, {
+            method: 'POST',
+            body: formData
+        })
+        const data = await res.json()
+        console.log('Cloudinary response:', data)
+        onSuccess(data.secure_url)
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+////////////////////////////////////
+
+
+///////////////////////////////////////
+// function onInit() {
+//     איפוס גלובלי
+//     
+//     }
+
+function onResize() {
+    resizeCanvas()
+}
+
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container')
+    gElCanvas.width = elContainer.clientWidth
+    renderMeme()
+}
+
+
+// function onDown(ev) {
+//     const pos = getEvPos(ev)
+//     gIsMouseDown = true
+//     document.querySelector('canvas').style.cursor = 'grabbing'
+// }
+
+// function onDrow(ev) {
+//     //swich case
+//     if (!gIsMouseDown) return
+//     const pos = getEvPos(ev)
+//     if (gBrush.shape === 'square') drawRect(pos.x, pos.y)
+//     else if (gBrush.shape === 'circle') drawArc(pos.x, pos.y)
+//     else drawImg(pos.x, pos.y, gBrush.shape)
+// }
+
+// function onUp() {
+//     gIsMouseDown = false
+//     document.querySelector('canvas').style.cursor = 'grab'
+// }
+
+
+function onSelectImg(elImg) {
+    if (elImg.style.filter === 'grayscale(0%)') {
+        elImg.style.filter = 'grayscale(100%)'
+        gBrush.shape = 'square'
+        return
+    }
+    elImg.style.filter = 'grayscale(0%)'
+    gBrush.shape = elImg
+}
+
+function onSavePic(){
+        const imgContent = gElCanvas.toDataURL('image/jpeg')
+        addPic(imgContent)
+        renderPics()
+}
+
+ function renderPics(){
+    var pics = getPics()
+    var strHtmls = pics.map(pic => `<div class="container">
+  <img src="${pic.pic}" alt="" onclick="onSelectPic(this)">
+  <button class="btn" onclick="onRemovePic('${pic.id}')">x</button>
+    </div>`)
+    document.querySelector('.pics-container').innerHTML = strHtmls.join('')
+ }
+
+ function onRemovePic(picId){
+    console.log('1', 1)
+    removePic(picId)
+ }
+
+ function onSelectPic(elImg){
+    renderImg(elImg)
+ }
+
+
+

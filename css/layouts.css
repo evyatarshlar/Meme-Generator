@@ -1,8 +1,23 @@
+:root {
+    --clr-primary1: #292929;
+    --clr-primary2: #58c93a;
+    --clr-primary3: #c2c2c2;
+    --clr-primary4: #e0e0e0;
+    --clr-primaryBase: #606060;
+    --clr-primary-1: #1d1d1d;
+    --clr-head: #ffffff;
+
+
+
+    --layoutpadding: 20px;
+}
+
 /* main layout */
-/* .main-layout {
+.main-layout {
     display: grid;
     grid-template-columns:
-        var(--layoutpadding) 1fr var(--layoutpadding);
+        /* var(--layoutpadding) 1fr var(--layoutpadding); */
+        minmax(var(--layoutpadding), 1fr) minmax(auto, 980px) minmax(var(--layoutpadding), 1fr);
 }
 
 .main-layout>*:not(.full) {
@@ -11,4 +26,4 @@
 
 .main-layout>.full {
     grid-column: 1 / -1;
-} */
+}

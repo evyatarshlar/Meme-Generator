@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/halpers.css">
     <link rel="stylesheet" href="css/layouts.css">
+    <!-- <link rel="stylesheet" href="css/mq.css"> -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
@@ -40,16 +41,29 @@
                 <input class="color" type="color" value="#000000" oninput="onSetFillColor(this.value)" />
                 <input class="color" type="color" value="#000000" oninput="onSetLineColor(this.value)" />
                 <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
-                <button onclick="onFontSize(1)">+</button>
-                <button onclick="onFontSize(-1)">-</button>
+                <button onclick="onPositioningArrow(-1)">⬆️</button>
+                <button onclick="onPositioningArrow(1)">⬇️</button>
+                <button onclick="onFontSize(1)">➕</button>
+                <button onclick="onFontSize(-1)">➖</button>
                 <button onclick="onAddLine()">Add line</button>
-                <button onclick="onRemovLine()">Delete line</button>
-                <button onclick="onSwichLine()">Switch line</button>
+                <button onclick="onRemovLine()">🚮</button>
+                <button onclick="onSwichLine()">↕️</button>
+                <button onclick="onSelectImuji(this.innerText)">😎</button>
+                <button onclick="onSelectImuji(this.innerText)">⭐</button>
+                <button onclick="onSelectImuji(this.innerText)">🤯</button>
+                <button onclick="onSelectImuji(this.innerText)">🤣</button>
                 <input type="text" id="name" name="name" size="10" oninput="onTxtInput(this.value)" />
+                <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(event)">
+                    <input name="img" id="imgData" type="hidden" />
+                    <button class="btn" type="submit">Upload to Facebook</button>
+                </form>
             </section>
         </section>
 
-        <section class="gallery" hidden>
+        <section class="gallery">
+        </section>
+
+        <section class="saved-memes">
         </section>
     </main>
     <footer></footer>

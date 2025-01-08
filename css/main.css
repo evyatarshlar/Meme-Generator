@@ -29,5 +29,15 @@ main {
 /* .main-header 
 
 .logo
-.main-nav
  */
+
+
+ .main-nav a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.main-header {
+    height: 160px;
+    background-color: lightblue;
+}

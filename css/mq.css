@@ -1,0 +1,100 @@
+/* Mobile Only */
+@media (max-width: 640px) {
+
+    .main-header {
+        height: 60px;
+    }
+
+
+    .main-header .btn-toggle-menu {
+        display: block;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 60px;
+        background: green;
+        left: 0;
+        width: 100%;
+
+
+        display: grid;
+        grid-template-rows: 0fr;
+        overflow: hidden;
+        transition: grid-template-rows 1s;
+        align-items: end;
+        align-content: end;
+    }
+
+    body.menu-open .main-nav {
+        grid-template-rows: 1fr;
+    }
+
+    .main-nav>ul {
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .main-nav>ul li {
+        border-bottom: 1px solid #000;
+    }
+
+    .main-nav a {
+        padding: 1em;
+    }
+
+}
+
+/* Small */
+@media (min-width: 640px) {
+
+    .main-layout {
+        grid-template-columns:
+            minmax(var(--layoutpadding), 1fr) minmax(auto, 600px) minmax(var(--layoutpadding), 1fr);
+    }
+
+
+    .main-nav a {
+        width: 100px;
+        height: 100px;
+    }
+
+}
+
+/* Medium */
+@media (min-width: 900px) {
+
+    html {
+        font-size: 14px;
+    }
+
+    .main-layout {
+        grid-template-columns:
+            minmax(var(--layoutpadding), 1fr) minmax(auto, 860px) minmax(var(--layoutpadding), 1fr);
+    }
+
+    .card {
+        display: grid;
+        align-items: stretch;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+}
+
+/* Large */
+@media (min-width: 1020px) {
+    html {
+        font-size: 16px;
+    }
+
+    .main-layout {
+        grid-template-columns:
+            minmax(var(--layoutpadding), 1fr) minmax(auto, 980px) minmax(var(--layoutpadding), 1fr);
+    }
+
+    .main-nav a {
+        width: 130px;
+        height: 130px;
+    }
+}
