@@ -19,22 +19,22 @@ function onInit() {
 function renderMeme(elImg) {
     if (elImg) return renderImg(elImg)
     const meme = getMeme()
-    const { txt, size,color ,lineColor } = meme.lines[0]
+
     const img = new Image()
     img.src = `meme-imgs/meme-imgs(square)/${meme.selectedImgId}.jpg`
     img.onload = () => {
         renderImg(img)
-        drawText(txt, size, color, lineColor, gElCanvas.width / 2, gElCanvas.height / 2)
+        meme.lines.forEach(line => {
+            const { txt, size, color, lineColor } = line
+            drawText(txt, size, color, lineColor, gElCanvas.width / 2, gElCanvas.height / 2)
+        })
+
     }
 }
 
 function renderImg(img) {
     gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-}
-
-function onTxtInput(txt) {
-    setLineTxt(txt)
 }
 
 function drawText(text, size, color, line, x, y) {
@@ -54,26 +54,40 @@ function drawText(text, size, color, line, x, y) {
     gCtx.closePath()
 }
 
+function onTxtInput(txt) {
+    setLineTxt(txt)
+    renderMeme()
+}
+
+function onSetFillColor(color) {
+    const meme = getMeme()
+    meme.lines[meme.selectedLineIdx].color = color
+    renderMeme()
+}
+
+function onSetLineColor(color) {
+    const meme = getMeme()
+    meme.lines[meme.selectedLineIdx].lineColor = color
+    renderMeme()
+}
+
+function onFontSize(size) {
+    const meme = getMeme()
+    meme.lines[meme.selectedLineIdx].size += size
+    renderMeme()
+}
+
 function onDownloadImg(elLink) {
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
 }
 
-
-function onSetFillColor(color){
-    const meme = getMeme()
-    meme.lines[0].color = color
+function onAddLine() {
+    addLine()
     renderMeme()
 }
 
-function onSetLineColor(color){
-    const meme = getMeme()
-    meme.lines[0].lineColor = color
-    renderMeme()
-}
-
-function onFontSize(size){
-    const meme = getMeme()
-    meme.lines[0].size += size
+function onSwichLine() {
+    swichLine()
     renderMeme()
 }

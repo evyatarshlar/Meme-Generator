@@ -36,11 +36,13 @@
                 ontouchstart="onDown(event)" ontouchmove="onMove(event)" ontouchend="onUp()" -->
             </div>
             <section>
-                <input class="color" type="color" value="#000000" onchange="onSetFillColor(this.value)" />
-                <input class="color" type="color" value="#000000" onchange="onSetLineColor(this.value)" />
+                <input class="color" type="color" value="#000000" oninput="onSetFillColor(this.value)" />
+                <input class="color" type="color" value="#000000" oninput="onSetLineColor(this.value)" />
                 <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
                 <button onclick="onFontSize(1)">+</button>
                 <button onclick="onFontSize(-1)">-</button>
+                <button onclick="onAddLine()">add line</button>
+                <button onclick="onSwichLine()">switch line</button>
                 <input type="text" id="name" name="name" size="10" oninput="onTxtInput(this.value)" />
             </section>
         </section>
