@@ -18,7 +18,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
-<body class="main-layout" onload="onInit()" onresize="onResize()" >
+<body class="main-layout" onload="onInit()" onresize="onResize()">
 
     <!-- mobile
     <div class="main-screen" onclick="toggleMenu()"></div>  -->
@@ -46,57 +46,64 @@
             </div>
 
             <section class="editor-container">
-                <input type="text" id="name" name="text" size="10" oninput="onTxtInput(this.value)" />
 
-                <div>
+                </div class="edit-btns-1">
+                <input type="text" id="name" name="text" size="10" oninput="onTxtInput(this.value)" />
+                </div>
+
+                <div class="edit-btns-2 grid-lines ">
                     <button onclick="onSwichLine()">↕️</button>
                     <button onclick="onAddLine()">Add line</button>
                     <button onclick="onRemovLine()">🚮</button>
                 </div>
 
-                <div>
+                <div class="edit-btns-3 grid-lines ">
                     <button onclick="onFontSize(1)">➕</button>
                     <button onclick="onFontSize(-1)">➖</button>
                 </div>
 
-                <div>
-                    <select class="fonts" onchange="onSetFont(this.value)">
+                <div class="edit-btns-4 grid-lines ">
+                    <select class="fonts color-btn" onchange="onSetFont(this.value)">
                         <option>IMPACT</option>
                         <option>ARIAL</option>
                         <option>TIME NEW</option>
                         <option>LECKERLI</option>
                         <option>GARAMOND</option>
                     </select>
-                    <input class="color" type="color" value="#000000" oninput="onSetFillColor(this.value)" />
-                    <input class="color" type="color" value="#000000" oninput="onSetLineColor(this.value)" />
+                    <label for="color-fill" class="color-btn">🪣</label>
+                    <input class="color-input" type="color" id="color-fill" value="#000000"
+                        oninput="onSetFillColor(this.value)" />
+                    <label for="color-line" class="color-btn">🖌️</label>
+                    <input class="color-input" type="color" id="color-line" value="#000000"
+                        oninput="onSetLineColor(this.value)" />
                 </div>
 
-                <div>
+                <div class="edit-btns-5 grid-lines ">
                     <button onclick="onSelectImuji(this.innerText)">😎</button>
                     <button onclick="onSelectImuji(this.innerText)">⭐</button>
                     <button onclick="onSelectImuji(this.innerText)">🤯</button>
                     <button onclick="onSelectImuji(this.innerText)">🤣</button>
                 </div>
-            
-                <div>
+
+                <div class="edit-btns-6 grid-lines ">
                     <button onclick="onSavePic()">Save Picture</button>
                     <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(event)">
                         <input name="img" id="imgData" type="hidden" />
                         <button class="btn" type="submit">Upload to Facebook</button>
                     </form>
-                    <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
+                    <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg"><button>Download</button></a>
                 </div>
-            
-                <div>
+
+                <div class="edit-btns-7 grid-lines ">
                     <button onclick="onPositioningArrow(-1)">⬆️</button>
                     <button onclick="onPositioningArrow(1)">⬇️</button>
-                    <label for="rotate">Rotate:</label>
+                    <label for="rotate" class="color-btn">Rotate:</label>
                     <input type="range" id="rotate" name="rotate" min="0" max="360" oninput="onRotate(this.value)">
                 </div>
-            
-            
+
+
             </section>
-            
+
         </section>
 
         <section class="gallery">
@@ -109,12 +116,6 @@
     <footer>
 
     </footer>
-
-    <script>
-        function toggleMenu() {
-            document.body.classList.toggle('menu-open')
-        }
-    </script>
 
     <script src="js/memeService.js"></script>
     <script src="js/memeController.js"></script>

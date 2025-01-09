@@ -15,3 +15,10 @@
     padding: 0;
     list-style-type: none;
 }
+
+.grid-lines {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 10px;
+}
+
