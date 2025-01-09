@@ -15,6 +15,7 @@ function onInit() {
     resizeCanvas()
     renderMeme()
     renderGallery()
+    renderPics()
 }
 
 function renderMeme() {
@@ -25,8 +26,8 @@ function renderMeme() {
     img.onload = () => {
         renderImg(img)
         meme.lines.forEach(line => {
-            const { txt, size, color, lineColor, pos , rotate,font } = line
-            drawText(txt, size, color, lineColor, pos.x, pos.y, rotate,font)
+            const { txt, size, color, lineColor, pos, rotate, font } = line
+            drawText(txt, size, color, lineColor, pos.x, pos.y, rotate, font)
         })
         selectedLineFram()
     }
@@ -37,7 +38,7 @@ function renderImg(img) {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function drawText(text, size, color, line, x, y, r,font) {
+function drawText(text, size, color, line, x, y, r, font) {
     gCtx.beginPath()
     gCtx.lineWidth = 1
     gCtx.strokeStyle = line
@@ -55,26 +56,26 @@ function drawText(text, size, color, line, x, y, r,font) {
 function selectedLineFram() {
     const meme = getMeme()
     if (meme.lines.length === 0) return
-    const { txt, size, pos ,rotate,font} = meme.lines[meme.selectedLineIdx]
+    const { txt, size, pos, rotate, font } = meme.lines[meme.selectedLineIdx]
     gCtx.beginPath()
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
     gCtx.font = `${size}px ${font}`
-    const posX =  (gCtx.measureText(txt).width) + 10 
+    const posX = (gCtx.measureText(txt).width) + 10
     const posY = size + 10
-    rotation(pos.x , pos.y, rotate)
+    rotation(pos.x, pos.y, rotate)
     gCtx.strokeRect(pos.x - (posX / 2), pos.y - (posY / 2), posX, posY)
     gCtx.setTransform(1, 0, 0, 1, 0, 0)
     gCtx.closePath()
 }
 
-function rotation(x, y, r=0){
+function rotation(x, y, r = 0) {
     gCtx.translate(x, y)
     gCtx.rotate(r * Math.PI / 180)
     gCtx.translate(-x, -y)
 }
 
-function onRotate(r){
+function onRotate(r) {
     setRotate(r)
     renderMeme()
 }
@@ -102,7 +103,7 @@ function onFontSize(size) {
     renderMeme()
 }
 
-function onSetFont(font){
+function onSetFont(font) {
     setFont(font)
     renderMeme()
 }
@@ -158,8 +159,8 @@ function onDown(ev) {
             clickedPos.y < line.pos.y + (line.size / 2)
     })
     if (!lineClikced) return
-    else    meme.selectedLineIdx = meme.lines.findIndex(line => lineClikced.pos === line.pos)
-  renderMeme()
+    else meme.selectedLineIdx = meme.lines.findIndex(line => lineClikced.pos === line.pos)
+    renderMeme()
 }
 
 function onDrow(ev) {
@@ -169,22 +170,22 @@ function onUp() {
 
 }
 
-function onRemovLine(){
+function onRemovLine() {
     removLine()
     renderMeme()
 }
 
-function onSelectImuji(imuji){
-   addLine(imuji)
-   renderMeme()
+function onSelectImuji(imuji) {
+    addLine(imuji)
+    renderMeme()
 }
 
-function onGallery(){
+function onGallery() {
     const elgallery = document.querySelector('gallery')
     elgallery.removeAttribute('hidden')
 }
 
-function onPositioningArrow(step){
+function onPositioningArrow(step) {
     const meme = getMeme()
     meme.lines[meme.selectedLineIdx].pos.y += step
     renderMeme()
@@ -290,21 +291,32 @@ function resizeCanvas() {
 //     document.querySelector('canvas').style.cursor = 'grab'
 // }
 
+function renderPics(){
+    var pics = getPics()
+     ///shold save all "line" object too
+    var strHtmls = pics.map(pic => `<div class="pics-container">
+  <img src="${pic.pic}" alt="" onclick="onSelectPic(this)">
+  <button class="btn" onclick="onRemovePic('${pic.id}')">x</button>
+    </div>`)
+    document.querySelector('.saved-memes').innerHTML = strHtmls.join('')
+ }
 
-function onSavePic(){
-        const imgContent = gElCanvas.toDataURL('image/jpeg')
-        addPic(imgContent)
-        renderPics()
+function onSavePic() {
+    ///shold save all "line" object too
+    const imgContent = gElCanvas.toDataURL('image/jpeg')
+    addPic(imgContent)
+    renderPics()
 }
 
- function onRemovePic(picId){
-    console.log('1', 1)
+function onRemovePic(picId) {
     removePic(picId)
- }
+    renderPics()
+}
 
- function onSelectPic(elImg){
+function onSelectPic(elImg) {
+     ///shold save all "line" object too {renderMeme()}
     renderImg(elImg)
- }
+}
 
 
 

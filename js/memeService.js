@@ -1,5 +1,6 @@
 'use strict'
 
+
 var gMeme = {
     selectedImgId: null,
     selectedLineIdx: 0,
@@ -14,6 +15,18 @@ var gMeme = {
             font: 'impact',
         }
     ]
+}
+
+const STORAGE_KEY = 'memeDB'
+
+function saveToStorage(key, val) {
+    const strVal = JSON.stringify(val)
+    localStorage.setItem(key, strVal)
+}
+
+function loadFromStorage(key) {
+    var val = localStorage.getItem(key)
+    return JSON.parse(val)
 }
 
 function getMeme() {
@@ -87,4 +100,52 @@ function setImg(idx) {
 function removLine() {
     gMeme.lines.splice(gMeme.selectedLineIdx, 1)
     gMeme.selectedLineIdx = 0
+}
+
+
+/////////////////////////////////////////////////////////
+
+var gPics = loadFromStorage(STORAGE_KEY) || []
+
+function getPics() {
+    return gPics
+}
+
+function removePic(picId) {
+    const picIdx = gPics.findIndex(pic => picId === pic.id)
+    gPics.splice(picIdx, 1)
+    _saveCarsToStorage()
+}
+
+function addPic(data) {
+    var pic = _createPic(data)
+    gPics.unshift(pic)
+
+    _saveCarsToStorage()
+    return pic
+}
+
+function getPicById(picId) {
+    return gPics.find(pic => picId === pic.id)
+}
+
+function _createPic(data) {
+    return {
+        id: makeId(),
+        pic : data,
+    }
+}
+
+function _saveCarsToStorage() {
+    saveToStorage(STORAGE_KEY, gPics)
+}
+
+function makeId(length = 6) {
+	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+	var id = ''
+    
+	for (var i = 0; i < length; i++) {
+		id += possible.charAt(Math.floor(Math.random() * possible.length))
+	}
+	return id
 }
