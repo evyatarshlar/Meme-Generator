@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/vars.css">
+    <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/halpers.css">
     <link rel="stylesheet" href="css/layouts.css">
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/vars.css">
-    <link rel="stylesheet" href="css/logo.css">
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/logo.css">
     <!-- <link rel="stylesheet" href="css/mobile.css"> -->
 
     <!-- <link rel="stylesheet" href="css/mq.css"> -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
-<body class="main-layout" onload="onInit()">
+<body class="" onload="onInit()">
 
     <!-- mobile
     <div class="main-screen" onclick="toggleMenu()"></div>  -->
@@ -43,7 +43,7 @@
                 <canvas width="400" height="400" onmousedown="onDown(event)" onmousemove="onDrow(event)"
                     onmouseup="onUp()" ontouchstart="onDown(event)" ontouchmove="onMove(event)" ontouchend="onUp()"></canvas>  
             </div>
-            
+
             <section>
                 <input class="color" type="color" value="#000000" oninput="onSetFillColor(this.value)" />
                 <input class="color" type="color" value="#000000" oninput="onSetLineColor(this.value)" />

@@ -11,5 +11,14 @@
 }
 
 .edit-meme-layout {
+    display: grid;
     grid-template-columns: 80px 1fr 60px 1fr 80px;
+}
+
+.edit-meme-layout>*:first-child {
+    grid-column: 2;
+}
+
+.edit-meme-layout>*:last-child {
+    grid-column: 4;
 }

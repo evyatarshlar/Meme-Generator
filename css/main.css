@@ -16,9 +16,18 @@
     text-transform: uppercase;
 }
 
+.main-nav a {
+    width: 100px;
+    height: 100px;
+}
+
+.main-nav>ul {
+    gap: 100px;
+}
+
 
 .canvas-container {
-    width: 80vw;
+    /* width: 80vw; */
     border: 2px solid red;
     border-radius: 20px;
 }
@@ -31,6 +40,5 @@
 }
 
 .gallery > img{
-    width: 100%;
     border-radius: 15px;
 }
