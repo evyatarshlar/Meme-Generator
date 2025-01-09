@@ -45,43 +45,6 @@
 
 }
 
-/* Small */
-@media (min-width: 640px) {
-
-    .main-layout {
-        grid-template-columns:
-            minmax(var(--layoutpadding), 1fr) minmax(auto, 600px) minmax(var(--layoutpadding), 1fr);
-    }
-
-
-    .main-nav a {
-        width: 100px;
-        height: 100px;
-    }
-
-}
-
-/* Medium */
-@media (min-width: 900px) {
-
-    html {
-        font-size: 14px;
-    }
-
-    .main-layout {
-        grid-template-columns:
-            minmax(var(--layoutpadding), 1fr) minmax(auto, 860px) minmax(var(--layoutpadding), 1fr);
-    }
-
-    .card {
-        display: grid;
-        align-items: stretch;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-    }
-
-}
-
 /* Large */
 @media (min-width: 1020px) {
     html {
@@ -90,11 +53,35 @@
 
     .main-layout {
         grid-template-columns:
-            minmax(var(--layoutpadding), 1fr) minmax(auto, 980px) minmax(var(--layoutpadding), 1fr);
+            minmax(var(--layoutpadding), 1fr) minmax(auto, var(--l)) minmax(var(--layoutpadding), 1fr);
     }
 
-    .main-nav a {
-        width: 130px;
-        height: 130px;
+    .edit-meme-layout {
+        grid-template-columns: 80px 1fr 60px 1fr 80px;
+        margin-bottom: 50px;
+    }
+
+    .edit-meme-layout>*:last-child {
+        grid-column: 4;
+    }
+
+    .logo {
+        font-size: 1.5em;
+    }
+
+    .main-nav>ul {
+        gap: 80px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .saved-memes {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .editor-container {
+    margin-top: 0;
     }
 }

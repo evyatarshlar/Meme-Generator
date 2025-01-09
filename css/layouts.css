@@ -2,10 +2,8 @@
 .main-layout {
     background: lightskyblue;
     display: grid;
-
-        /* var(--layoutpadding) 1fr var(--layoutpadding); */
-        grid-template-columns:
-            minmax(var(--layoutpadding), 1fr) minmax(auto, var(--l)) minmax(var(--layoutpadding), 1fr);
+    grid-template-columns:
+        var(--layoutpadding) 1fr var(--layoutpadding);
 }
 
 .main-layout>*{
@@ -17,8 +15,8 @@
 
 .edit-meme-layout {
     display: none;
-    grid-template-columns: 80px 1fr 60px 1fr 80px;
-    margin-bottom: 50px;
+    grid-template-columns: 20px 1fr 20px;
+    margin-bottom: 20px;
 }
 
 .edit-meme-layout>*:first-child {
@@ -26,5 +24,5 @@
 }
 
 .edit-meme-layout>*:last-child {
-    grid-column: 4;
+    grid-column: 2;
 }

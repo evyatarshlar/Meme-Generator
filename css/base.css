@@ -7,7 +7,7 @@ html {
     font-family: Poppins-Medium;
     color: var(--clr-primaryBase);
     line-height: 1.7142857;
-    font-size: 16px;
+    font-size: 0.875rem;
 }
 
 body {
@@ -38,7 +38,7 @@ button{
     background-color:DodgerBlue;
     color: var(--clr-primary1);
     font-size: 1em;
-    padding: 6px 12px;
+    padding: 0.35em 0.85em;
     border: none;
     cursor: pointer;
     border-radius: 2em;

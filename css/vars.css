@@ -2,15 +2,8 @@
     --clr-primary1: #EBEEF3; /* edit box */
     --clr-primary2: #3D3D3D; /* edit box text */
     --clr-primaryBase: #ffffff; /*  general text */
-    /* --clr-primary3: #c2c2c2;
-    --clr-primary4: #e0e0e0; */
-    /* --clr-primary-1: #1d1d1d; */
-
-
 
     --layoutpadding: 20px;
 
-    --s: 600px;
-    --m: 880px;
     --l: 1300px;
 }
