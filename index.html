@@ -8,18 +8,27 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/halpers.css">
     <link rel="stylesheet" href="css/layouts.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/vars.css">
+    <link rel="stylesheet" href="css/logo.css">
+    <link rel="stylesheet" href="css/base.css">
+    <!-- <link rel="stylesheet" href="css/mobile.css"> -->
+
     <!-- <link rel="stylesheet" href="css/mq.css"> -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body class="main-layout" onload="onInit()">
 
+    <!-- mobile
+    <div class="main-screen" onclick="toggleMenu()"></div>  -->
+
     <header class="main-header flex align-center space-between">
         <div class="logo">Meme Generator</div>
         <nav class="main-nav">
             <ul class="flex clean-list">
                 <li><a href="#" onclick="onGallery()">Gallery</a></li>
-                <li><a href="#" onclick="">Memes</a></li>
+                <li><a href="#" onclick="">Saved</a></li>
                 <li><a href="#" onclick="">About</a></li>
             </ul>
         </nav>
@@ -29,15 +38,13 @@
 
     <main>
 
-        <section class="editor">
+        <section class="editor edit-meme-layout">
             <div class="canvas-container">
                 <canvas width="400" height="400" onmousedown="onDown(event)" onmousemove="onDrow(event)"
-                    onmouseup="onUp()"></canvas>
-                <!-- 
-                ontouchstart="onDown(event)" ontouchmove="onMove(event)" ontouchend="onUp()" -->
+                    onmouseup="onUp()" ontouchstart="onDown(event)" ontouchmove="onMove(event)" ontouchend="onUp()"></canvas>  
             </div>
+            
             <section>
-
                 <input class="color" type="color" value="#000000" oninput="onSetFillColor(this.value)" />
                 <input class="color" type="color" value="#000000" oninput="onSetLineColor(this.value)" />
                 <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
@@ -76,7 +83,16 @@
         <section class="saved-memes">
         </section>
     </main>
-    <footer></footer>
+
+    <footer>
+
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.body.classList.toggle('menu-open')
+        }
+    </script>
 
     <script src="js/memeService.js"></script>
     <script src="js/memeController.js"></script>

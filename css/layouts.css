@@ -1,17 +1,3 @@
-:root {
-    --clr-primary1: #292929;
-    --clr-primary2: #58c93a;
-    --clr-primary3: #c2c2c2;
-    --clr-primary4: #e0e0e0;
-    --clr-primaryBase: #606060;
-    --clr-primary-1: #1d1d1d;
-    --clr-head: #ffffff;
-
-
-
-    --layoutpadding: 20px;
-}
-
 /* main layout */
 .main-layout {
     display: grid;
@@ -20,10 +6,10 @@
         minmax(var(--layoutpadding), 1fr) minmax(auto, 980px) minmax(var(--layoutpadding), 1fr);
 }
 
-.main-layout>*:not(.full) {
+.main-layout{
     grid-column: 2;
 }
 
-.main-layout>.full {
-    grid-column: 1 / -1;
+.edit-meme-layout {
+    grid-template-columns: 80px 1fr 60px 1fr 80px;
 }
