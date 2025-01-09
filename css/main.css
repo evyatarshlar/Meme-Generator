@@ -37,7 +37,26 @@ main {
     text-decoration: none;
 }
 
+@font-face {
+    font-family: garamondB;
+    src: url(/fonts/garamond.ttf);
+}
+
+@font-face {
+    font-family: leckerli;
+    src: url(/fonts/leckerli.ttf);
+}
+
 .main-header {
     height: 160px;
     background-color: lightblue;
+    font-family: impact;
+    font-size: 2rem;
 }
+
+
+/* Arial, Helvetica, sans-serif */
+
+/* Impact, sans-serif */
+
+/* 'Times New Roman', Times, serif */

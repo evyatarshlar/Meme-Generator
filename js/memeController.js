@@ -25,8 +25,8 @@ function renderMeme() {
     img.onload = () => {
         renderImg(img)
         meme.lines.forEach(line => {
-            const { txt, size, color, lineColor, pos } = line
-            drawText(txt, size, color, lineColor, pos.x, pos.y)
+            const { txt, size, color, lineColor, pos , rotate,font } = line
+            drawText(txt, size, color, lineColor, pos.x, pos.y, rotate,font)
         })
         selectedLineFram()
     }
@@ -37,34 +37,46 @@ function renderImg(img) {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function drawText(text, size, color, line, x, y, r =90) {
+function drawText(text, size, color, line, x, y, r,font) {
     gCtx.beginPath()
     gCtx.lineWidth = 1
     gCtx.strokeStyle = line
     gCtx.fillStyle = color
-    gCtx.font = `${size}px Arial`
+    gCtx.font = `${size}px ${font}`
     gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
-    // gCtx.translate(x, y)
-    // gCtx.rotate(r * Math.PI / 180)
-    // gCtx.translate(-x, -y)
+    rotation(x, y, r)
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
+    gCtx.setTransform(1, 0, 0, 1, 0, 0)
     gCtx.closePath()
 }
 
 function selectedLineFram() {
     const meme = getMeme()
     if (meme.lines.length === 0) return
-    const { txt, size, pos } = meme.lines[meme.selectedLineIdx]
+    const { txt, size, pos ,rotate,font} = meme.lines[meme.selectedLineIdx]
     gCtx.beginPath()
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
-    gCtx.font = `${size}px Arial`
+    gCtx.font = `${size}px ${font}`
     const posX =  (gCtx.measureText(txt).width) + 10 
     const posY = size + 10
+    rotation(pos.x , pos.y, rotate)
     gCtx.strokeRect(pos.x - (posX / 2), pos.y - (posY / 2), posX, posY)
+    gCtx.setTransform(1, 0, 0, 1, 0, 0)
     gCtx.closePath()
+}
+
+function rotation(x, y, r=0){
+    gCtx.translate(x, y)
+    gCtx.rotate(r * Math.PI / 180)
+    gCtx.translate(-x, -y)
+}
+
+function onRotate(r){
+    setRotate(r)
+    renderMeme()
 }
 
 function onTxtInput(txt) {
@@ -87,6 +99,11 @@ function onSetLineColor(color) {
 function onFontSize(size) {
     const meme = getMeme()
     meme.lines[meme.selectedLineIdx].size += size
+    renderMeme()
+}
+
+function onSetFont(font){
+    setFont(font)
     renderMeme()
 }
 
@@ -239,14 +256,8 @@ async function uploadImg(imgData, onSuccess) {
         console.log(err)
     }
 }
-////////////////////////////////////
-
 
 ///////////////////////////////////////
-// function onInit() {
-//     איפוס גלובלי
-//     
-//     }
 
 function onResize() {
     resizeCanvas()
@@ -280,30 +291,11 @@ function resizeCanvas() {
 // }
 
 
-function onSelectImg(elImg) {
-    if (elImg.style.filter === 'grayscale(0%)') {
-        elImg.style.filter = 'grayscale(100%)'
-        gBrush.shape = 'square'
-        return
-    }
-    elImg.style.filter = 'grayscale(0%)'
-    gBrush.shape = elImg
-}
-
 function onSavePic(){
         const imgContent = gElCanvas.toDataURL('image/jpeg')
         addPic(imgContent)
         renderPics()
 }
-
- function renderPics(){
-    var pics = getPics()
-    var strHtmls = pics.map(pic => `<div class="container">
-  <img src="${pic.pic}" alt="" onclick="onSelectPic(this)">
-  <button class="btn" onclick="onRemovePic('${pic.id}')">x</button>
-    </div>`)
-    document.querySelector('.pics-container').innerHTML = strHtmls.join('')
- }
 
  function onRemovePic(picId){
     console.log('1', 1)

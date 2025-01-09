@@ -32,12 +32,12 @@
         <section class="editor">
             <div class="canvas-container">
                 <canvas width="400" height="400" onmousedown="onDown(event)" onmousemove="onDrow(event)"
-                onmouseup="onUp()"></canvas>
+                    onmouseup="onUp()"></canvas>
                 <!-- 
                 ontouchstart="onDown(event)" ontouchmove="onMove(event)" ontouchend="onUp()" -->
             </div>
             <section>
-                
+
                 <input class="color" type="color" value="#000000" oninput="onSetFillColor(this.value)" />
                 <input class="color" type="color" value="#000000" oninput="onSetLineColor(this.value)" />
                 <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
@@ -48,10 +48,19 @@
                 <button onclick="onAddLine()">Add line</button>
                 <button onclick="onRemovLine()">🚮</button>
                 <button onclick="onSwichLine()">↕️</button>
+                <label for="rotate">Rotate:</label>
+                <input type="range" id="rotate" name="rotate" min="0" max="360" oninput="onRotate(this.value)">
                 <button onclick="onSelectImuji(this.innerText)">😎</button>
                 <button onclick="onSelectImuji(this.innerText)">⭐</button>
                 <button onclick="onSelectImuji(this.innerText)">🤯</button>
                 <button onclick="onSelectImuji(this.innerText)">🤣</button>
+                <select class="fonts" onchange="onSetFont(this.value)">
+                    <option>IMPACT</option>
+                    <option>ARIAL</option>
+                    <option>TIME NEW</option>
+                    <option>LECKERLI</option>
+                    <option>GARAMOND</option>
+                </select>
                 <input type="text" id="name" name="name" size="10" oninput="onTxtInput(this.value)" />
                 <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(event)">
                     <input name="img" id="imgData" type="hidden" />

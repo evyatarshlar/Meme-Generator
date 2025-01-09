@@ -1,15 +1,17 @@
 'use strict'
 
 var gMeme = {
-    selectedImgId: 5,
+    selectedImgId: null,
     selectedLineIdx: 0,
     lines: [
         {
-            txt: 'I sometimes eat Falafel',
+            txt: 'Enter text',
             size: 30,
             color: 'red',
             lineColor: 'black',
-            pos: { x: 200, y: 30 }
+            pos: { x: 200, y: 30 },
+            rotate: 0,
+            font: 'impact',
         }
     ]
 }
@@ -22,10 +24,35 @@ function setLineTxt(txt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }
 
+function setRotate(r) {
+    gMeme.lines[gMeme.selectedLineIdx].rotate = r
+}
+
+function setFont(clickedFont) {
+    let currMeme = gMeme.lines[gMeme.selectedLineIdx]
+    switch (clickedFont) {
+        case 'IMPACT':
+            currMeme.font = 'impact'
+            break
+        case 'ARIAL':
+            currMeme.font = 'arial'
+            break
+        case 'TIME NEW':
+            currMeme.font = 'Times New Roman'
+            break
+        case 'LECKERLI':
+            currMeme.font = 'leckerli'
+            break
+        case 'GARAMOND':
+            currMeme.font = 'garamondB'
+            break
+    }
+}
+
 function addLine(imuji) {
     var line = _createLine(imuji)
     gMeme.lines.push(line)
-    if (gMeme.lines.length !== 1) gMeme.selectedLineIdx++ 
+    if (gMeme.lines.length !== 1) gMeme.selectedLineIdx++
     // _saveCarsToStorage()
     return line
 }
@@ -36,7 +63,9 @@ function _createLine(imuji = 'Enter text') {
         size: 30,
         color: 'blue',
         lineColor: 'green',
-        pos: { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
+        pos: { x: gElCanvas.width / 2, y: gElCanvas.height / 2 },
+        rotate: 0,
+        font: 'impact',
     }
 }
 
