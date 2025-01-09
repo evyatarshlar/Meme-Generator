@@ -1,10 +1,9 @@
 /* Mobile Only */
-@media (max-width: 640px) {
+@media (max-width: 1020px) {
 
     .main-header {
         height: 60px;
     }
-
 
     .main-header .btn-toggle-menu {
         display: block;
@@ -13,10 +12,9 @@
     .main-nav {
         position: fixed;
         top: 60px;
-        background: green;
+        background: rgb(94, 96, 236);
         left: 0;
         width: 100%;
-
 
         display: grid;
         grid-template-rows: 0fr;
@@ -28,6 +26,21 @@
 
     body.menu-open .main-nav {
         grid-template-rows: 1fr;
+    }
+    .main-screen {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, .6);
+        cursor: pointer;
+        pointer-events: none;
+        opacity: 0;
+    
+        transition: opacity .8s;
+    }
+    
+    body.menu-open .main-screen {
+        opacity: 1;
+        pointer-events: auto;
     }
 
     .main-nav>ul {
@@ -83,5 +96,8 @@
 
     .editor-container {
     margin-top: 0;
+    }
+    .main-header .btn-toggle-menu {
+        display: none;
     }
 }

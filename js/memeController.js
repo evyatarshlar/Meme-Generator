@@ -180,6 +180,7 @@ function onSelectImuji(imuji) {
 }
 
 function onGallery() {
+    toggleMenu()
     const elGallery = document.querySelector('.gallery')
     elGallery.style.display = 'grid'
     const elEditor = document.querySelector('.edit-meme-layout')
@@ -189,6 +190,7 @@ function onGallery() {
 }
 
 function onSaved() {
+    toggleMenu()
     const elSaved = document.querySelector('.saved-memes')
     elSaved.style.display = 'grid'
     const elGallery = document.querySelector('.gallery')
@@ -349,6 +351,10 @@ function onImgSelect(idx) {
     elSaved.style.display = 'none'
     resizeCanvas()
     setImg(idx)
+}
+
+function toggleMenu() {
+    document.body.classList.toggle('menu-open')
 }
 
 
