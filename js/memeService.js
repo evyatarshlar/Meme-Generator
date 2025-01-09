@@ -7,12 +7,13 @@ var gMeme = {
     lines: [
         {
             txt: 'Enter text',
-            size: 30,
+            size: 50,
             color: 'red',
             lineColor: 'black',
             pos: { x: 200, y: 30 },
             rotate: 0,
             font: 'impact',
+            isTaken : false,
         }
     ]
 }
@@ -73,12 +74,13 @@ function addLine(imuji) {
 function _createLine(imuji = 'Enter text') {
     return {
         txt: imuji,
-        size: 30,
+        size: 50,
         color: 'blue',
         lineColor: 'green',
         pos: { x: gElCanvas.width / 2, y: gElCanvas.height / 2 },
         rotate: 0,
         font: 'impact',
+        isTaken : false,
     }
 }
 
@@ -149,3 +151,8 @@ function makeId(length = 6) {
 	}
 	return id
 }
+
+function moveText(dx, dy) {
+    gMeme.lines[gMeme.selectedLineIdx].pos.x += dx
+    gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
+  }

@@ -39,8 +39,8 @@
 
         <section class="editor edit-meme-layout">
             <div class="canvas-container">
-                <canvas width="400" height="400" onmousedown="onDown(event)" onmousemove="onDrow(event)"
-                    onmouseup="onUp()" ontouchstart="onDown(event)" ontouchmove="onMove(event)"
+                <canvas width="400" height="400" onmousedown="onDown(event)" onmousemove="onDrag(event)"
+                    onmouseup="onUp()" ontouchstart="onDown(event)" ontouchmove="onDrag(event)"
                     ontouchend="onUp()"></canvas>
             </div>
 
@@ -98,7 +98,7 @@
                     <button onclick="onPositioningArrow(-1)">⬆️</button>
                     <button onclick="onPositioningArrow(1)">⬇️</button>
                     <label for="rotate" class="color-btn">Rotate:</label>
-                    <input type="range" id="rotate" name="rotate" min="0" max="360" oninput="onRotate(this.value)">
+                    <input type="range" id="rotate" name="rotate" min="0" max="360" value = 0 oninput="onRotate(this.value)">
                 </div>
 
 

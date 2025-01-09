@@ -2,6 +2,9 @@
 
 let gElCanvas
 let gCtx
+// let gIsTaking = false
+let gIsMouseDown = false
+let gStartPos
 
 var gImgs = [{ id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'] }]
 
@@ -28,6 +31,7 @@ function renderMeme() {
             const { txt, size, color, lineColor, pos, rotate, font } = line
             drawText(txt, size, color, lineColor, pos.x, pos.y, rotate, font)
         })
+        // if (!gIsTaking)
         selectedLineFram()
     }
 }
@@ -108,8 +112,11 @@ function onSetFont(font) {
 }
 
 function onDownloadImg(elLink) {
+    // gIsTaking = true
+    // renderMeme()
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
+    // gIsTaking = false
 }
 
 function onAddLine() {
@@ -121,7 +128,6 @@ function onSwichLine() {
     swichLine()
     renderMeme()
 }
-
 
 function getEvPos(ev) {
     const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
@@ -159,20 +165,33 @@ function onDown(ev) {
     })
     if (!lineClikced) return
     else meme.selectedLineIdx = meme.lines.findIndex(line => lineClikced.pos === line.pos)
+    gIsMouseDown = true
+    gStartPos = clickedPos
+    document.querySelector('canvas').style.cursor = 'grabbing'
     renderMeme()
 }
 
-function onDrow(ev) {
-
+function onDrag(ev) {
+    if (!gIsMouseDown) return
+    const pos = getEvPos(ev)
+    const dx = pos.x - gStartPos.x
+    const dy = pos.y - gStartPos.y
+    moveText(dx, dy)
+    gStartPos = pos
+    renderMeme()
 }
-function onUp() {
 
+function onUp() {
+    gIsMouseDown = false
+    document.querySelector('canvas').style.cursor = 'grab'
 }
 
 function onRemovLine() {
     removLine()
     renderMeme()
 }
+
+
 
 function onSelectImuji(imuji) {
     addLine(imuji)
@@ -280,27 +299,6 @@ function resizeCanvas() {
     renderMeme()
 }
 
-
-// function onDown(ev) {
-//     const pos = getEvPos(ev)
-//     gIsMouseDown = true
-//     document.querySelector('canvas').style.cursor = 'grabbing'
-// }
-
-// function onDrow(ev) {
-//     //swich case
-//     if (!gIsMouseDown) return
-//     const pos = getEvPos(ev)
-//     if (gBrush.shape === 'square') drawRect(pos.x, pos.y)
-//     else if (gBrush.shape === 'circle') drawArc(pos.x, pos.y)
-//     else drawImg(pos.x, pos.y, gBrush.shape)
-// }
-
-// function onUp() {
-//     gIsMouseDown = false
-//     document.querySelector('canvas').style.cursor = 'grab'
-// }
-
 function renderPics() {
     var pics = getPics()
     ///shold save all "line" object too
@@ -327,8 +325,8 @@ function onRemovePic(picId) {
 
 function onSelectPic(elImg) {
     ///shold save all "line" object too {renderMeme()}
-
-    renderMeme()
+    renderImg(elImg)
+    // renderMeme()
 }
 
 
@@ -336,7 +334,7 @@ function onSelectPic(elImg) {
 function renderGallery() {
     var strHtmls = []
     for (let i = 0; i < 17; i++) {
-        strHtmls[i] = `<img src="meme-imgs/meme-imgs(square)/${i+1}.jpg" alt="" onclick="onImgSelect(${i+1})">`
+        strHtmls[i] = `<img src="meme-imgs/meme-imgs(square)/${i + 1}.jpg" alt="" onclick="onImgSelect(${i + 1})">`
     }
     strHtmls.unshift('<label for="color-fill" class="color-btn">Upload Image</label> <input type="file" class="color-input" id="file" name="image" onchange="onImgInput(event)" />')
     document.querySelector('.gallery').innerHTML = strHtmls.join('')
@@ -344,7 +342,7 @@ function renderGallery() {
 
 function onImgSelect(idx) {
     const elEditor = document.querySelector('.edit-meme-layout')
-    elEditor.style.display ='grid'
+    elEditor.style.display = 'grid'
     const elGallery = document.querySelector('.gallery')
     elGallery.style.display = 'none'
     const elSaved = document.querySelector('.saved-memes')
