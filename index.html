@@ -18,7 +18,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
-<body class="main-layout" onload="onInit()">
+<body class="main-layout" onload="onInit()" onresize="onResize()" >
 
     <!-- mobile
     <div class="main-screen" onclick="toggleMenu()"></div>  -->
@@ -28,7 +28,7 @@
         <nav class="main-nav">
             <ul class="flex clean-list">
                 <li><a href="#" onclick="onGallery()">Gallery</a></li>
-                <li><a href="#" onclick="">Saved</a></li>
+                <li><a href="#" onclick="onSaved()">Saved</a></li>
                 <li><a href="#" onclick="">About</a></li>
             </ul>
         </nav>
@@ -41,40 +41,62 @@
         <section class="editor edit-meme-layout">
             <div class="canvas-container">
                 <canvas width="400" height="400" onmousedown="onDown(event)" onmousemove="onDrow(event)"
-                    onmouseup="onUp()" ontouchstart="onDown(event)" ontouchmove="onMove(event)" ontouchend="onUp()"></canvas>  
+                    onmouseup="onUp()" ontouchstart="onDown(event)" ontouchmove="onMove(event)"
+                    ontouchend="onUp()"></canvas>
             </div>
 
-            <section>
-                <input class="color" type="color" value="#000000" oninput="onSetFillColor(this.value)" />
-                <input class="color" type="color" value="#000000" oninput="onSetLineColor(this.value)" />
-                <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
-                <button onclick="onPositioningArrow(-1)">⬆️</button>
-                <button onclick="onPositioningArrow(1)">⬇️</button>
-                <button onclick="onFontSize(1)">➕</button>
-                <button onclick="onFontSize(-1)">➖</button>
-                <button onclick="onAddLine()">Add line</button>
-                <button onclick="onRemovLine()">🚮</button>
-                <button onclick="onSwichLine()">↕️</button>
-                <label for="rotate">Rotate:</label>
-                <input type="range" id="rotate" name="rotate" min="0" max="360" oninput="onRotate(this.value)">
-                <button onclick="onSelectImuji(this.innerText)">😎</button>
-                <button onclick="onSelectImuji(this.innerText)">⭐</button>
-                <button onclick="onSelectImuji(this.innerText)">🤯</button>
-                <button onclick="onSelectImuji(this.innerText)">🤣</button>
-                <select class="fonts" onchange="onSetFont(this.value)">
-                    <option>IMPACT</option>
-                    <option>ARIAL</option>
-                    <option>TIME NEW</option>
-                    <option>LECKERLI</option>
-                    <option>GARAMOND</option>
-                </select>
-                <input type="text" id="name" name="name" size="10" oninput="onTxtInput(this.value)" />
-                <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(event)">
-                    <input name="img" id="imgData" type="hidden" />
-                    <button class="btn" type="submit">Upload to Facebook</button>
-                </form>
-                <button onclick="onSavePic()">Save Picture</button>
+            <section class="editor-container">
+                <input type="text" id="name" name="text" size="10" oninput="onTxtInput(this.value)" />
+
+                <div>
+                    <button onclick="onSwichLine()">↕️</button>
+                    <button onclick="onAddLine()">Add line</button>
+                    <button onclick="onRemovLine()">🚮</button>
+                </div>
+
+                <div>
+                    <button onclick="onFontSize(1)">➕</button>
+                    <button onclick="onFontSize(-1)">➖</button>
+                </div>
+
+                <div>
+                    <select class="fonts" onchange="onSetFont(this.value)">
+                        <option>IMPACT</option>
+                        <option>ARIAL</option>
+                        <option>TIME NEW</option>
+                        <option>LECKERLI</option>
+                        <option>GARAMOND</option>
+                    </select>
+                    <input class="color" type="color" value="#000000" oninput="onSetFillColor(this.value)" />
+                    <input class="color" type="color" value="#000000" oninput="onSetLineColor(this.value)" />
+                </div>
+
+                <div>
+                    <button onclick="onSelectImuji(this.innerText)">😎</button>
+                    <button onclick="onSelectImuji(this.innerText)">⭐</button>
+                    <button onclick="onSelectImuji(this.innerText)">🤯</button>
+                    <button onclick="onSelectImuji(this.innerText)">🤣</button>
+                </div>
+            
+                <div>
+                    <button onclick="onSavePic()">Save Picture</button>
+                    <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(event)">
+                        <input name="img" id="imgData" type="hidden" />
+                        <button class="btn" type="submit">Upload to Facebook</button>
+                    </form>
+                    <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
+                </div>
+            
+                <div>
+                    <button onclick="onPositioningArrow(-1)">⬆️</button>
+                    <button onclick="onPositioningArrow(1)">⬇️</button>
+                    <label for="rotate">Rotate:</label>
+                    <input type="range" id="rotate" name="rotate" min="0" max="360" oninput="onRotate(this.value)">
+                </div>
+            
+            
             </section>
+            
         </section>
 
         <section class="gallery">

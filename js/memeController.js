@@ -20,7 +20,6 @@ function onInit() {
 
 function renderMeme() {
     const meme = getMeme()
-
     const img = new Image()
     img.src = `meme-imgs/meme-imgs(square)/${meme.selectedImgId}.jpg`
     img.onload = () => {
@@ -181,8 +180,21 @@ function onSelectImuji(imuji) {
 }
 
 function onGallery() {
-    const elgallery = document.querySelector('gallery')
-    elgallery.removeAttribute('hidden')
+    const elGallery = document.querySelector('.gallery')
+    elGallery.style.display = 'grid'
+    const elEditor = document.querySelector('.edit-meme-layout')
+    elEditor.style.display = 'none'
+    const elSaved = document.querySelector('.saved-memes')
+    elSaved.style.display = 'none'
+}
+
+function onSaved() {
+    const elSaved = document.querySelector('.saved-memes')
+    elSaved.style.display = 'grid'
+    const elGallery = document.querySelector('.gallery')
+    elGallery.style.display = 'none'
+    const elEditor = document.querySelector('.edit-meme-layout')
+    elEditor.style.display = 'none'
 }
 
 function onPositioningArrow(step) {
@@ -208,11 +220,6 @@ function loadImageFromInput(ev, onImageReady) {
         img.src = event.target.result
     }
     reader.readAsDataURL(ev.target.files[0])
-}
-
-function renderImg(img) {
-    gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
-    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
 ///////////////////////////////////////////
@@ -291,21 +298,22 @@ function resizeCanvas() {
 //     document.querySelector('canvas').style.cursor = 'grab'
 // }
 
-function renderPics(){
+function renderPics() {
     var pics = getPics()
-     ///shold save all "line" object too
-    var strHtmls = pics.map(pic => `<div class="pics-container">
+    ///shold save all "line" object too
+    var strHtmls = pics.map(pic => `
   <img src="${pic.pic}" alt="" onclick="onSelectPic(this)">
   <button class="btn" onclick="onRemovePic('${pic.id}')">x</button>
-    </div>`)
+`)
     document.querySelector('.saved-memes').innerHTML = strHtmls.join('')
- }
+}
 
 function onSavePic() {
     ///shold save all "line" object too
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     addPic(imgContent)
     renderPics()
+    onSaved()
 }
 
 function onRemovePic(picId) {
@@ -314,7 +322,7 @@ function onRemovePic(picId) {
 }
 
 function onSelectPic(elImg) {
-     ///shold save all "line" object too {renderMeme()}
+    ///shold save all "line" object too {renderMeme()}
     renderImg(elImg)
 }
 

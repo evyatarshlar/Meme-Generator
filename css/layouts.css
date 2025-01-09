@@ -1,5 +1,6 @@
 /* main layout */
 .main-layout {
+    background: lightskyblue;
     display: grid;
 
         /* var(--layoutpadding) 1fr var(--layoutpadding); */
@@ -11,9 +12,13 @@
     grid-column: 2;
 }
 
+
+/* editor layout */
+
 .edit-meme-layout {
-    display: grid;
+    display: none;
     grid-template-columns: 80px 1fr 60px 1fr 80px;
+    margin-bottom: 50px;
 }
 
 .edit-meme-layout>*:first-child {
