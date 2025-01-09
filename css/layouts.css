@@ -1,12 +1,13 @@
 /* main layout */
 .main-layout {
     display: grid;
-    grid-template-columns:
+
         /* var(--layoutpadding) 1fr var(--layoutpadding); */
-        minmax(var(--layoutpadding), 1fr) minmax(auto, 980px) minmax(var(--layoutpadding), 1fr);
+        grid-template-columns:
+            minmax(var(--layoutpadding), 1fr) minmax(auto, var(--l)) minmax(var(--layoutpadding), 1fr);
 }
 
-.main-layout{
+.main-layout>*{
     grid-column: 2;
 }
 
