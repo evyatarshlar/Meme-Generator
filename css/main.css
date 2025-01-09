@@ -92,3 +92,11 @@ input[name="text"] {
     height: 0;
     opacity: 0;
 }
+
+footer{
+    background-color: darkblue;
+    margin: 20px 0;
+    text-align: center;
+    padding-top: 0.7em;
+    border-radius: 2em;
+}
