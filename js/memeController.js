@@ -1,39 +1,33 @@
 'use strict'
 
+let gcurrImg
 let gElCanvas
 let gCtx
-// let gIsTaking = false
+let gIsTaking = false
 let gIsMouseDown = false
 let gStartPos
-
-var gImgs = [{ id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'] }]
-
-var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
-
 
 function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
     resizeCanvas()
-    renderMeme()
+    // renderMeme(gcurrImg)
     renderGallery()
-    renderPics()
+    // renderPics()
 }
 
-function renderMeme() {
+function renderMeme(elImg) {
+    if (!elImg) return
     const meme = getMeme()
-    const img = new Image()
-    img.src = `meme-imgs/meme-imgs(square)/${meme.selectedImgId}.jpg`
-    img.onload = () => {
-        renderImg(img)
+    // elImg.onload = () => {
+        renderImg(elImg)
         meme.lines.forEach(line => {
             const { txt, size, color, lineColor, pos, rotate, font } = line
             drawText(txt, size, color, lineColor, pos.x, pos.y, rotate, font)
         })
-        // if (!gIsTaking)
-        selectedLineFram()
-    }
+        if (!gIsTaking) selectedLineFram()
+    // }
 }
 
 function renderImg(img) {
@@ -80,53 +74,53 @@ function rotation(x, y, r = 0) {
 
 function onRotate(r) {
     setRotate(r)
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function onTxtInput(txt) {
     setLineTxt(txt)
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function onSetFillColor(color) {
     const meme = getMeme()
     meme.lines[meme.selectedLineIdx].color = color
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function onSetLineColor(color) {
     const meme = getMeme()
     meme.lines[meme.selectedLineIdx].lineColor = color
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function onFontSize(size) {
     const meme = getMeme()
     meme.lines[meme.selectedLineIdx].size += size
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function onSetFont(font) {
     setFont(font)
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function onDownloadImg(elLink) {
-    // gIsTaking = true
-    // renderMeme()
+    gIsTaking = true
+    renderMeme(gcurrImg)
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
-    // gIsTaking = false
+    gIsTaking = false
 }
 
 function onAddLine() {
     addLine()
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function onSwichLine() {
     swichLine()
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function getEvPos(ev) {
@@ -156,7 +150,7 @@ function onDown(ev) {
     // const { offsetX, offsetY, clientX, clientY } = ev
     const meme = getMeme()
     const lineClikced = meme.lines.find(line => {
-        gCtx.font = `${line.size}px Arial`
+        gCtx.font = `${line.size}px ${line.font}`
         const txtWidth = (gCtx.measureText(line.txt).width)
         return clickedPos.x > line.pos.x - (txtWidth / 2) &&
             clickedPos.x < line.pos.x + (txtWidth / 2) &&
@@ -168,7 +162,7 @@ function onDown(ev) {
     gIsMouseDown = true
     gStartPos = clickedPos
     document.querySelector('canvas').style.cursor = 'grabbing'
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function onDrag(ev) {
@@ -178,7 +172,7 @@ function onDrag(ev) {
     const dy = pos.y - gStartPos.y
     moveText(dx, dy)
     gStartPos = pos
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function onUp() {
@@ -188,14 +182,14 @@ function onUp() {
 
 function onRemovLine() {
     removLine()
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 
 
 function onSelectImuji(imuji) {
     addLine(imuji)
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function onGallery() {
@@ -210,6 +204,7 @@ function onGallery() {
 
 function onSaved() {
     toggleMenu()
+    renderPics()
     const elSaved = document.querySelector('.saved-memes')
     elSaved.style.display = 'grid'
     const elGallery = document.querySelector('.gallery')
@@ -221,12 +216,15 @@ function onSaved() {
 function onPositioningArrow(step) {
     const meme = getMeme()
     meme.lines[meme.selectedLineIdx].pos.y += step
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 ///////////////////////////////////////////////
+
+////upload image from user to canvas
+
 function onImgInput(ev) {
-    loadImageFromInput(ev, renderImg)
+    loadImageFromInput(ev, setImg)
 }
 
 function loadImageFromInput(ev, onImageReady) {
@@ -241,7 +239,7 @@ function loadImageFromInput(ev, onImageReady) {
         img.src = event.target.result
     }
     reader.readAsDataURL(ev.target.files[0])
-    closeGallery()
+    openEditor()
 }
 
 ///////////////////////////////////////////
@@ -296,14 +294,14 @@ function onResize() {
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
     gElCanvas.width = elContainer.clientWidth
-    renderMeme()
+    renderMeme(gcurrImg)
 }
 
 function renderPics() {
     var pics = getPics()
     ///shold save all "line" object too
     var strHtmls = pics.map(pic => `<div class="container">
-  <img src="${pic.pic}" alt="" onclick="onSelectPic(this)">
+  <img src="${pic.pic}" alt="" id="'${pic.id}'" onclick="onSelectPic(this)">
   <button class="btn" onclick="onRemovePic('${pic.id}')">x</button>
     </div>`)
     document.querySelector('.saved-memes').innerHTML = strHtmls.join('')
@@ -311,11 +309,14 @@ function renderPics() {
 
 function onSavePic() {
     ///shold save all "line" object too
+    gIsTaking = true
+    renderMeme(gcurrImg)
     const imgContent = gElCanvas.toDataURL('image/jpeg')
-    var meme = getMeme()
-    addPic(imgContent, meme)
+    addPic(imgContent)
     renderPics()
     onSaved()
+    document.body.classList.toggle('menu-open')
+    gIsTaking = false
 }
 
 function onRemovePic(picId) {
@@ -324,31 +325,15 @@ function onRemovePic(picId) {
 }
 
 function onSelectPic(elImg) {
-    ///shold save all "line" object too {renderMeme()}
-    renderImg(elImg)
-    // renderMeme()
-}
-
-
-
-function renderGallery() {
-    var strHtmls = []
-    for (let i = 0; i < 17; i++) {
-        strHtmls[i] = `<img src="meme-imgs/meme-imgs(square)/${i + 1}.jpg" alt="" onclick="onImgSelect(${i + 1})">`
-    }
-    strHtmls.unshift('<label for="color-fill" class="color-btn">Upload Image</label> <input type="file" class="color-input" id="file" name="image" onchange="onImgInput(event)" />')
-    document.querySelector('.gallery').innerHTML = strHtmls.join('')
-}
-
-function onImgSelect(idx) {
-    const elEditor = document.querySelector('.edit-meme-layout')
-    elEditor.style.display = 'grid'
-    const elGallery = document.querySelector('.gallery')
-    elGallery.style.display = 'none'
-    const elSaved = document.querySelector('.saved-memes')
-    elSaved.style.display = 'none'
-    resizeCanvas()
-    setImg(idx)
+    const idx = elImg.getAttribute("id").slice(1, -1)
+    const memsIndx = gMemes.findIndex(meme => idx === meme.selectedImgId)
+    gMeme = gMemes[memsIndx]
+    const img = new Image()
+    console.log('gMeme.srcImg', gMeme.srcImg)
+    img.src = gMeme.srcImg
+    gcurrImg = img
+    renderMeme(gcurrImg)
+    openEditor()
 }
 
 function toggleMenu() {

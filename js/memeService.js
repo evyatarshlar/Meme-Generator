@@ -1,24 +1,22 @@
 'use strict'
 
+// dbdefoult+nsme,data img+ data gmem
 
 var gMeme = {
-    selectedImgId: null,
+    selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
         {
             txt: 'Enter text',
+            font: 'impact',
             size: 50,
             color: 'red',
             lineColor: 'black',
-            pos: { x: 200, y: 30 },
             rotate: 0,
-            font: 'impact',
-            isTaken : false,
+            pos: { x: 200, y: 30 },
         }
     ]
 }
-
-const STORAGE_KEY = 'memeDB'
 
 function saveToStorage(key, val) {
     const strVal = JSON.stringify(val)
@@ -29,6 +27,13 @@ function loadFromStorage(key) {
     var val = localStorage.getItem(key)
     return JSON.parse(val)
 }
+const STORAGE_MEME_KEY = 'memeDB'
+const STORAGE_IMG_DATA_KEY = 'imgdataDB'
+
+var gPics = loadFromStorage(STORAGE_IMG_DATA_KEY) || []
+var gMemes = loadFromStorage(STORAGE_MEME_KEY) || []
+
+
 
 function getMeme() {
     return gMeme
@@ -67,7 +72,7 @@ function addLine(imuji) {
     var line = _createLine(imuji)
     gMeme.lines.push(line)
     if (gMeme.lines.length !== 1) gMeme.selectedLineIdx++
-    // _saveCarsToStorage()
+    _saveMemeToStorage()
     return line
 }
 
@@ -80,7 +85,7 @@ function _createLine(imuji = 'Enter text') {
         pos: { x: gElCanvas.width / 2, y: gElCanvas.height / 2 },
         rotate: 0,
         font: 'impact',
-        isTaken : false,
+        isTaken: false,
     }
 }
 
@@ -94,9 +99,9 @@ function swichLine() {
 
 ///from gallery controller
 
-function setImg(idx) {
+function setImg(elimg ,idx = makeId()) {
     gMeme.selectedImgId = idx
-    renderMeme() ////controller?
+    renderMeme(elimg) ////controller?
 }
 
 function removLine() {
@@ -107,7 +112,6 @@ function removLine() {
 
 /////////////////////////////////////////////////////////
 
-var gPics = loadFromStorage(STORAGE_KEY) || []
 
 function getPics() {
     return gPics
@@ -116,43 +120,51 @@ function getPics() {
 function removePic(picId) {
     const picIdx = gPics.findIndex(pic => picId === pic.id)
     gPics.splice(picIdx, 1)
-    _saveCarsToStorage()
+    const memeIdx = gMemes.findIndex(meme => picId === meme.selectedImgId)
+    gMemes.splice(memeIdx,1)
+    _saveDataToStorage()
 }
 
 function addPic(data) {
     var pic = _createPic(data)
     gPics.unshift(pic)
-
-    _saveCarsToStorage()
+    gMeme.srcImg = gImgs[gMeme.selectedImgId-1].url
+    gMeme.selectedImgId = pic.id
+    gMemes.push(gMeme)
+    _saveDataToStorage()
+    _saveMemeToStorage()
     return pic
-}
-
-function getPicById(picId) {
-    return gPics.find(pic => picId === pic.id)
 }
 
 function _createPic(data) {
     return {
         id: makeId(),
-        pic : data,
+        pic: data,
     }
 }
+function getPicById(picId) {
+    return gPics.find(pic => picId === pic.id)
+}
 
-function _saveCarsToStorage() {
-    saveToStorage(STORAGE_KEY, gPics)
+function _saveMemeToStorage() {
+    saveToStorage(STORAGE_MEME_KEY, gMemes)
+}
+
+function _saveDataToStorage() {
+    saveToStorage(STORAGE_IMG_DATA_KEY, gPics)
 }
 
 function makeId(length = 6) {
-	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-	var id = ''
-    
-	for (var i = 0; i < length; i++) {
-		id += possible.charAt(Math.floor(Math.random() * possible.length))
-	}
-	return id
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    var id = ''
+
+    for (var i = 0; i < length; i++) {
+        id += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    return id
 }
 
 function moveText(dx, dy) {
     gMeme.lines[gMeme.selectedLineIdx].pos.x += dx
     gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
-  }
+}
