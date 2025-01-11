@@ -237,8 +237,13 @@ function loadImageFromInput(ev, onImageReady) {
             onImageReady(img)
         }
         img.src = event.target.result
+        gcurrImg = img
+        gImgs.push({ id: makeId() , url: img.src})
     }
     reader.readAsDataURL(ev.target.files[0])
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+    gMeme.selectedImgId = gImgs.length+1
+    gMeme.isUpload = true
     openEditor()
 }
 
@@ -332,8 +337,9 @@ function onSelectPic(elImg) {
     console.log('gMeme.srcImg', gMeme.srcImg)
     img.src = gMeme.srcImg
     gcurrImg = img
-    renderMeme(gcurrImg)
     openEditor()
+    renderMeme(gcurrImg)
+    resizeCanvas()
 }
 
 function toggleMenu() {

@@ -3,7 +3,7 @@
 // dbdefoult+nsme,data img+ data gmem
 
 var gMeme = {
-    selectedImgId: 1,
+    selectedImgId: null,
     selectedLineIdx: 0,
     lines: [
         {
@@ -14,6 +14,7 @@ var gMeme = {
             lineColor: 'black',
             rotate: 0,
             pos: { x: 200, y: 30 },
+            isUpload : false
         }
     ]
 }
@@ -69,6 +70,7 @@ function setFont(clickedFont) {
 }
 
 function addLine(imuji) {
+    if (!gMeme.lines) gMeme.lines = []
     var line = _createLine(imuji)
     gMeme.lines.push(line)
     if (gMeme.lines.length !== 1) gMeme.selectedLineIdx++
@@ -100,7 +102,7 @@ function swichLine() {
 ///from gallery controller
 
 function setImg(elimg ,idx = makeId()) {
-    gMeme.selectedImgId = idx
+    if (!gMeme.isUpload) gMeme.selectedImgId = idx
     renderMeme(elimg) ////controller?
 }
 
