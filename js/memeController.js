@@ -21,12 +21,12 @@ function renderMeme(elImg) {
     if (!elImg) return
     const meme = getMeme()
     // elImg.onload = () => {
-        renderImg(elImg)
-        meme.lines.forEach(line => {
-            const { txt, size, color, lineColor, pos, rotate, font } = line
-            drawText(txt, size, color, lineColor, pos.x, pos.y, rotate, font)
-        })
-        if (!gIsTaking) selectedLineFram()
+    renderImg(elImg)
+    meme.lines.forEach(line => {
+        const { txt, size, color, lineColor, pos, rotate, font } = line
+        drawText(txt, size, color, lineColor, pos.x, pos.y, rotate, font)
+    })
+    if (!gIsTaking) selectedLineFram()
     // }
 }
 
@@ -238,11 +238,11 @@ function loadImageFromInput(ev, onImageReady) {
         }
         img.src = event.target.result
         gcurrImg = img
-        gImgs.push({ id: makeId() , url: img.src})
+        gImgs.push({ id: makeId(), url: img.src })
     }
     reader.readAsDataURL(ev.target.files[0])
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-    gMeme.selectedImgId = gImgs.length+1
+    gMeme.selectedImgId = gImgs.length + 1
     gMeme.isUpload = true
     openEditor()
 }
@@ -251,6 +251,9 @@ function loadImageFromInput(ev, onImageReady) {
 
 function onUploadImg(ev) {
     ev.preventDefault()
+    gIsTaking = true
+    renderMeme(gcurrImg)
+
     const canvasData = gElCanvas.toDataURL('image/jpeg')
 
     // After a succesful upload, allow the user to share on Facebook
@@ -266,7 +269,7 @@ function onUploadImg(ev) {
         //    Share on Facebook  
         // </button>`
     }
-
+    gIsTaking = false
     uploadImg(canvasData, onSuccess)
 }
 
