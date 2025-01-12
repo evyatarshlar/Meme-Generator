@@ -5,7 +5,7 @@ function renderGallery() {
     for (let i = 0; i < 17; i++) {
         strHtmls[i] = `<img src="meme-imgs/meme-imgs(square)/${i+1}.jpg" alt="" onclick="onImgSelect(this,${i+1})">`
     }
-    strHtmls.unshift('<label for="file-upload" class="color-btn">Upload Image</label> <input type="file" class="color-input" id="file-upload" name="image" onchange="onImgInput(event)" />')
+    strHtmls.unshift(' <input type="file" class="file-input" id="file-upload" name="image" onchange="onImgInput(event)" /><label for="file-upload" class="file  flex align-center color-btn">Upload</label>')
     document.querySelector('.gallery').innerHTML = strHtmls.join('')
 }
 

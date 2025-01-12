@@ -4,7 +4,8 @@
     font-size: 2rem;
 
     border-radius: 25px;
-    margin: 30px 0;
+    margin: 30px 30px;
+    grid-column: 1 / -1;
 }
 
 .main-nav a {
@@ -18,14 +19,19 @@
     gap: 1em;
 }
 
-.main-nav>ul:last-child {
-    padding-right: 20px;
+.main-nav>ul li:hover {
+    opacity: 0.8;
+}
+
+.main-nav>ul li .indicator{
+    border-bottom: 5px solid red;
 }
 
 .gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1em
+
 }
 
 .saved-memes {
@@ -100,4 +106,15 @@ footer{
     padding-top: 0.7em;
     border-radius: 2em;
    
+}
+
+
+.file{
+    justify-content: center;
+    font-size: 2em;
+    border-radius: 20px;
+}
+
+.file-input{
+display: none;
 }
