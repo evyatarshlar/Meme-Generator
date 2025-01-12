@@ -196,7 +196,7 @@ function onGallery() {
     toggleMenu()
     const elGallery = document.querySelector('.gallery')
     elGallery.style.display = 'grid'
-    elGallery.classList.add('indicator')
+     elGallery.style.color = 'aqua'
     const elEditor = document.querySelector('.edit-meme-layout')
     elEditor.style.display = 'none'
     const elSaved = document.querySelector('.saved-memes')

@@ -19,7 +19,7 @@
 .edit-meme-layout {
     display: none;
     grid-template-columns: 20px 1fr 20px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .edit-meme-layout>*:first-child {

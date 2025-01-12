@@ -6,6 +6,7 @@
     border-radius: 25px;
     margin: 30px 30px;
     grid-column: 1 / -1;
+    
 }
 
 .main-nav a {
@@ -23,8 +24,8 @@
     opacity: 0.8;
 }
 
-.main-nav>ul li .indicator{
-    border-bottom: 5px solid red;
+.indicator{
+    color: aqua;
 }
 
 .gallery {
@@ -37,6 +38,7 @@
 .saved-memes {
     display: none;
     grid-template-columns: repeat(2, 1fr);
+   
     gap: 1em
 }
 
@@ -57,10 +59,17 @@
     border: none;
     cursor: pointer;
     border-radius: 2em;
+    /* display: none; */
+    
+    /* z-index: -2; */
+  
 }
 
-.container .btn:hover {
-    background-color: black;
+.container:hover + .container .btn{
+    /* display: block; */
+    
+    /* position: absolute; */
+    /* z-index: 5; */
 }
 
 
@@ -99,12 +108,13 @@ input[name="text"] {
     opacity: 0;
 }
 
-footer{
+.footer{
     background-color: darkblue;
-    margin: 20px 0;
     text-align: center;
     padding-top: 0.7em;
     border-radius: 2em;
+    margin: 30px 30px;
+    grid-column: 1 / -1;
    
 }
 

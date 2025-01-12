@@ -78,16 +78,16 @@
 
     .main-layout {
         grid-template-columns:
-            minmax(var(--layoutpadding), 1fr) minmax(auto, var(--l)) minmax(var(--layoutpadding), 1fr);
-    }
+            minmax(var(--layoutpadding),80px) 1fr minmax(var(--layoutpadding), 80px);
+        }
 
     .main-nav>ul:last-child {
-        padding-right: 35px;
+        padding-right: 50px;
     }
 
     .edit-meme-layout {
         grid-template-columns: 80px 1fr 60px 1fr 80px;
-        margin-bottom: 50px;
+        /* margin-bottom: 50px; */
     }
 
     .edit-meme-layout>*:last-child {
@@ -103,11 +103,12 @@
     }
 
     .gallery {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5,1fr);
     }
 
-    .saved-memes {
-        grid-template-columns: repeat(4, 1fr);
+  .saved-memes {
+        grid-template-columns: repeat(5, 1fr);
+        min-height: 63vh;
     }
 
     .editor-container {
