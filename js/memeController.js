@@ -336,8 +336,8 @@ function onSelectPic(elImg) {
     const idx = elImg.getAttribute("id").slice(1, -1)
     const memsIndx = gMemes.findIndex(meme => idx === meme.selectedImgId)
     gMeme = gMemes[memsIndx]
+    console.log('memsIndx', memsIndx)
     const img = new Image()
-    console.log('gMeme.srcImg', gMeme.srcImg)
     img.src = gMeme.srcImg
     gcurrImg = img
     openEditor()
