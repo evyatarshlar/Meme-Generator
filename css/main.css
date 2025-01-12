@@ -93,8 +93,15 @@ input[name="text"] {
     font-size: 1.2em;
 }
 
+input[type="text"]::placeholder {
+             
+   
+    text-align: center;
+}
+
 input[name="text"]:focus {
     outline-width: 0;
+   
 }
 
 .color-btn {
@@ -133,4 +140,19 @@ input[name="text"]:focus {
 
 .file-input{
 display: none;
+}
+
+.modal {
+    display: none;
+	padding: 2em;
+	background: dodgerblue;
+	border: 1px solid lightgray;
+    border-radius: 20px;
+    width: 400px;
+	padding: 10px;
+	transition: opacity 0.5s;
+}
+
+.modal > p {
+	text-align: left;
 }

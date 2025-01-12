@@ -22,5 +22,7 @@ function openEditor(){
     elGallery.style.display = 'none'
     const elSaved = document.querySelector('.saved-memes')
     elSaved.style.display = 'none'
+    const elModal = document.querySelector(".modal")
+    elModal.style.display = 'none'
     resizeCanvas()
 }

@@ -196,11 +196,13 @@ function onGallery() {
     toggleMenu()
     const elGallery = document.querySelector('.gallery')
     elGallery.style.display = 'grid'
-     elGallery.style.color = 'aqua'
+   
     const elEditor = document.querySelector('.edit-meme-layout')
     elEditor.style.display = 'none'
     const elSaved = document.querySelector('.saved-memes')
     elSaved.style.display = 'none'
+    const elModal = document.querySelector(".modal")
+    elModal.style.display = 'none'
 }
 
 function onSaved() {
@@ -212,7 +214,21 @@ function onSaved() {
     elGallery.style.display = 'none'
     const elEditor = document.querySelector('.edit-meme-layout')
     elEditor.style.display = 'none'
+      const elModal = document.querySelector(".modal")
+    elModal.style.display = 'none'
 }
+
+function onAbout(){
+    const elModal = document.querySelector(".modal")
+    elModal.style.display = 'grid'
+    const elGallery = document.querySelector('.gallery')
+    elGallery.style.display = 'none'
+    const elEditor = document.querySelector('.edit-meme-layout')
+    elEditor.style.display = 'none'
+    const elSaved = document.querySelector('.saved-memes')
+    elSaved.style.display = 'none'
+}
+
 
 function onPositioningArrow(step) {
     const meme = getMeme()
