@@ -1,14 +1,14 @@
 @font-face {
     font-family: garamondB;
-    src: url(/fonts/garamond.ttf);
+    src: url(fonts/garamond.ttf);
 }
 
 @font-face {
     font-family: leckerli;
-    src: url(/fonts/leckerli.ttf);
+    src: url(fonts/leckerli.ttf);
 }
 
 @font-face {
     font-family: Poppins-Medium;
-    src: url(/fonts/Poppins-Medium.ttf);
+    src: url(fonts/Poppins-Medium.ttf);
 }
