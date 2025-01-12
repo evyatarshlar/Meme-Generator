@@ -20,7 +20,7 @@
 <body class="main-layout" onload="onInit()" onresize="onResize()">
 
     <!-- mobile -->
-    <div class="main-screen" onclick="toggleMenu()"></div> 
+    <div class="main-screen" onclick="toggleMenu()"></div>
 
     <header class="main-header flex align-center space-between">
         <div class="logo">Meme Generator</div>
@@ -47,7 +47,7 @@
             <section class="editor-container">
 
                 </div class="edit-btns-1">
-                <input type="text" id="name" name="text" size="10" oninput="onTxtInput(this.value)" />
+                <input type="text" id="name" name="text" placeholder="Entaer text" size="10" oninput="onTxtInput(this.value)" />
                 </div>
 
                 <div class="edit-btns-2 grid-lines ">
@@ -59,6 +59,8 @@
                 <div class="edit-btns-3 grid-lines ">
                     <button onclick="onFontSize(1)">➕</button>
                     <button onclick="onFontSize(-1)">➖</button>
+                    <button onclick="onPositioningArrow(-1)">⬆️</button>
+                    <button onclick="onPositioningArrow(1)">⬇️</button>
                 </div>
 
                 <div class="edit-btns-4 grid-lines ">
@@ -85,20 +87,20 @@
                 </div>
 
                 <div class="edit-btns-6 grid-lines ">
-                    <button onclick="onSavePic()">Save Picture</button>
-                    <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(event)">
-                        <input name="img" id="imgData" type="hidden" />
-                        <button class="btn" type="submit">Upload to Facebook</button>
-                    </form>
-                    <a href="#" class="btn" onclick="onDownloadImg(this)"
-                        download="my-img.jpg"><button>Download</button></a>
+                  
+                    <label for="rotate" class="color-btn">Rotate <input type="range" id="rotate" name="rotate" min="0" max="360" value=0
+                        oninput="onRotate(this.value)"></label>
+                    
                 </div>
 
                 <div class="edit-btns-7 grid-lines ">
-                    <button onclick="onPositioningArrow(-1)">⬆️</button>
-                    <button onclick="onPositioningArrow(1)">⬇️</button>
-                    <label for="rotate" class="color-btn">Rotate:</label>
-                    <input type="range" id="rotate" name="rotate" min="0" max="360" value = 0 oninput="onRotate(this.value)">
+                    <button onclick="onSavePic()">Save</button>
+                    <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(event)">
+                        <input name="img" id="imgData" type="hidden" />
+                        <button class="btn" type="submit">Upload</button>
+                    </form>
+                    <a href="#" class="btn" onclick="onDownloadImg(this)"
+                        download="my-img.jpg"><button>Download</button></a>
                 </div>
 
 

@@ -86,9 +86,15 @@
 
 input[name="text"] {
     background-color: lightskyblue;
-    width: 17em;
+    width: 14em;
     height: 2em;
-    border-radius: 1.5em;
+    border-radius:7em;
+    border: 1px solid dodgerblue;
+    font-size: 1.2em;
+}
+
+input[name="text"]:focus {
+    outline-width: 0;
 }
 
 .color-btn {

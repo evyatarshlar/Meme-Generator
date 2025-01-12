@@ -5,6 +5,11 @@
         height: 60px;
     }
 
+    
+.color-btn {
+    font-size: 0.85em;
+  
+}
     .main-screen {
         position: fixed;
         inset: 0;
@@ -123,4 +128,20 @@
         margin: 0;
         padding: 0;
     }
+
+    button{
+        font-size: 1.5em;
+    }
+    .color-btn {
+        font-size: 1.3rem;
+    }
+
+    
+input[name="text"] {
+ 
+    width: 13em;
+    height: 2em;
+    border-radius:7em;
+    font-size: 1.5em;
+}
 }
